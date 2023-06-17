@@ -3,7 +3,7 @@ from django.urls import path, include
 from drf_spectacular.views import (
     SpectacularAPIView, SpectacularSwaggerView
 )
-from .views import OrderViewSet
+from orders.api.views import OrderViewSet
 from rest_framework.routers import SimpleRouter
 
 
