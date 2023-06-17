@@ -1,6 +1,7 @@
 from django.db import transaction
 from rest_framework import viewsets
 from rest_framework.decorators import action
+from rest_framework.exceptions import APIException
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -22,8 +23,11 @@ class AgentViewSet(viewsets.GenericViewSet):
 
         """
         with transaction.atomic():
-            agent = Agent.objects.filter(is_reserved=False).first()
-            Agent.objects.update(id=agent.id).update(is_reserved=True)
+            try:
+                agent = Agent.objects.filter(is_reserved=False).first()
+                Agent.objects.update(id=agent.id).update(is_reserved=True)
+            except Exception as e:
+                raise APIException from e
             # TODO: add timer
             return Response({
                 'message': f'Agent: {agent.name}({agent.id}) has been reserved'

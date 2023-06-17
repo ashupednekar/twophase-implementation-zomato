@@ -1,6 +1,7 @@
 from django.db import transaction
 from rest_framework import viewsets
 from rest_framework.decorators import action
+from rest_framework.exceptions import APIException
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -21,9 +22,12 @@ class FoodViewSet(viewsets.GenericViewSet):
         :return: A message that the package has been reserved
         """
         with transaction.atomic():
-            food = Food.objects.get(name__icontains=request.data.get('name'))
-            package = Package.objects.filter(is_reserved=False, food=food)
-            Package.objects.update(id=package.id).update(is_reserved=True)
+            try:
+                food = Food.objects.get(name__icontains=request.data.get('name'))
+                package = Package.objects.filter(is_reserved=False, food=food)
+                Package.objects.update(id=package.id).update(is_reserved=True)
+            except Exception as e:
+                raise APIException from e
             # TODO: add timer
             return Response({
                 'message': f'Package: {food.name}({package.id}) has been reserved'
