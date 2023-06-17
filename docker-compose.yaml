@@ -1,0 +1,48 @@
+version: '3'
+services:
+
+  order-svc:
+    image: 'order'
+    container_name: 'order-svc'
+    command:
+    - manage.py
+    - runserver
+    - 0.0.0.0:8001
+    env_file:
+    - ./bud-core-Order-svc/config.env
+    volumes:
+    - ./bud-core-Order-svc:/backend
+    network_mode: host
+
+  store-svc:
+    image: 'store'
+    container_name: 'store-svc'
+    command:
+    - manage.py
+    - runserver
+    - 0.0.0.0:8002
+    build: .
+    env_file:
+    - ./bud-core-Store-svc/config.env
+    volumes:
+    - ./bud-core-Store-svc:/backend
+    network_mode: host
+
+
+  delivery-svc:
+    image: 'delivery'
+    container_name: 'delivery-svc'
+    command:
+    - manage.py
+    - runserver
+    - 0.0.0.0:8003
+    build: .
+    env_file:
+    - ./bud-core-Delivery-svc/config.env
+    volumes:
+    - ./bud-core-Delivery-svc:/backend
+    network_mode: host
+
+
+networks:
+  net:

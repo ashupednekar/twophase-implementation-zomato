@@ -1,0 +1,39 @@
+version: '3'
+services:
+
+  example-svc:
+    image: 'bankbuddy.azurecr.io/boilerplate:v1'
+    container_name: 'example-svc'
+    build: .
+    env_file:
+    - config.env
+    volumes:
+    - .:/backend
+    networks:
+    - net
+
+  redis:
+    image: 'redis:latest'
+    container_name: 'redis'
+    environment:
+    - ALLOW_EMPTY_PASSWORD=yes
+    - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    networks:
+    - net
+
+  postgres_console:
+    image: 'postgres:13.4'
+    container_name: 'postgres'
+    ports:
+    - "5434:5432"
+    environment:
+    - POSTGRES_DB=console
+    - POSTGRES_PASSWORD=buddy123
+    - POSTGRES_USER=consoleuser
+    volumes:
+    - ~/Desktop/pgdata:/var/lib/postgresql/data
+    networks:
+    - net
+
+networks:
+  net:
