@@ -3,12 +3,12 @@ from django.urls import path, include
 from drf_spectacular.views import (
     SpectacularAPIView, SpectacularSwaggerView
 )
-from orders.api.views import OrderViewSet
+from api.views import AgentViewSet
 from rest_framework.routers import SimpleRouter
 
 
 router = SimpleRouter()
-router.register('', OrderViewSet, basename='order')
+router.register('', AgentViewSet, basename='agent')
 
 
 urlpatterns = [

@@ -3,7 +3,7 @@ from django.urls import path, include
 from drf_spectacular.views import (
     SpectacularAPIView, SpectacularSwaggerView
 )
-from store.api.views import FoodViewSet
+from api.views import FoodViewSet
 from rest_framework.routers import SimpleRouter
 
 

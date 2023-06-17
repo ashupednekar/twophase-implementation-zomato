@@ -3,12 +3,12 @@ from django.urls import path, include
 from drf_spectacular.views import (
     SpectacularAPIView, SpectacularSwaggerView
 )
-from delevery.api.views import AgentViewSet
+from api.views import OrderViewSet
 from rest_framework.routers import SimpleRouter
 
 
 router = SimpleRouter()
-router.register('', AgentViewSet, basename='agent')
+router.register('', OrderViewSet, basename='order')
 
 
 urlpatterns = [
