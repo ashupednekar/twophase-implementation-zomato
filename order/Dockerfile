@@ -25,7 +25,7 @@ COPY --from=build-env --chown=nonroot:nonroot /usr/lib/x86_64-linux-gnu/ /usr/li
 COPY --from=build-env --chown=nonroot:nonroot /lib/x86_64-linux-gnu/ /usr/lib/x86_64-linux-gnu/
 COPY --from=build-env --chown=nonroot:nonroot /usr/local/bin /usr/local/bin
 #COPY --from=build-env --chown=nonroot:nonroot /backend/logs /bot/backend
-#COPY --from=build-env --chown=nonroot:nonroot /backend/libpython3.9.so.1.0 /usr/lib/x86_64-linux-gnu/
+COPY --from=build-env --chown=nonroot:nonroot /backend/libpython3.9.so.1.0 /usr/lib/x86_64-linux-gnu/
 #Run true needed as intermediate container error is being thrown during build stage giving issue in pipeline build
 RUN true
 

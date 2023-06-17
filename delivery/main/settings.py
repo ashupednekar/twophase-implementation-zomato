@@ -119,8 +119,15 @@ ASGI_APPLICATION = "main.routing.application"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),  # Path to your SQLite database file
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'buddy',
+        'USER': 'buddy',
+        'PASSWORD': 'buddy',
+        'HOST': 'localhost',
+        'PORT': '5432',
+        'OPTIONS': {
+            'options': f'-c search_path={os.getenv("DB_SCHEMA")}',
+        },
     }
 }
 # Password validation
